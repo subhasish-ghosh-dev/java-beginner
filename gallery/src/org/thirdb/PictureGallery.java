@@ -5,6 +5,8 @@
  */
 package org.thirdb;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -22,6 +24,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,31 +49,34 @@ public class PictureGallery extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        filesLoc.add("/home/subhasish/Pictures/banner_update.png");
-        filesLoc.add("/home/subhasish/Pictures/executors.png");
-        filesLoc.add("/home/subhasish/Pictures/sparkjob.png");
+        //filesLoc.add("/home/subhasish/Pictures/banner_update.png");
+        //filesLoc.add("/home/subhasish/Pictures/executors.png");
+        //filesLoc.add("/home/subhasish/Pictures/sparkjob.png");
         Label lblFile=new Label(fileLoc);   
-        BorderPane root = new BorderPane();
-        
-        //filesLoc = FileManager.filesLoc;    
+        BorderPane root = new BorderPane();        
+        startTask();
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+        filesLoc = FileManager.filesLoc;    
         Button nextBtn = new Button();
         nextBtn.setText("Next");
         nextBtn.setOnAction(new EventHandler<ActionEvent>() {            
             @Override
             public void handle(ActionEvent event) {
-                //startTask();                
-                System.out.println(filesLoc.size());
-                System.out.print("idx: "+idx);
-                System.out.println(" "+(idx<filesLoc.size()));
-                if(idx<filesLoc.size()){                    
+                                
+                //System.out.println(filesLoc.size());
+                //System.out.print("idx: "+idx);
+                //System.out.println(" "+(idx<filesLoc.size()));
+                if(idx<filesLoc.size()-1){                    
                     idx=idx+1;
                 }
                 fileLoc=filesLoc.get(idx);
                 System.out.println(fileLoc);
                 lblFile.setText(fileLoc);
-                Image img = new Image("file://"+fileLoc,600,400,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
+                Image img = new Image("file://"+fileLoc,width,height-200,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
                 ImageInput imgIcon = new ImageInput(img);
-                Rectangle rect=new Rectangle();
+                Rectangle rect=new Rectangle();                
                 rect.setEffect(imgIcon); 
                 root.setTop(rect);
             }
@@ -79,47 +85,48 @@ public class PictureGallery extends Application {
 
         Button prevBtn = new Button();
         prevBtn.setText("Previous");
-        nextBtn.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {            
-            System.out.println(filesLoc.size()); 
-            if(idx>0){
-                idx=idx-1;
+        prevBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {            
+                //System.out.println(filesLoc.size()); 
+                if(idx>0){
+                    idx=idx-1;
+                }
+                fileLoc=filesLoc.get(idx);
+                System.out.println(fileLoc);
+                lblFile.setText(fileLoc);
+                Image img = new Image("file://"+fileLoc,width,height-200,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
+                ImageInput imgIcon = new ImageInput(img);
+                Rectangle rect=new Rectangle();
+                rect.setEffect(imgIcon);
+                root.setTop(rect);
             }
-            fileLoc=filesLoc.get(idx);
-            System.out.println(fileLoc);
-            lblFile.setText(fileLoc);
-            Image img = new Image("file://"+fileLoc,600,400,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
-            ImageInput imgIcon = new ImageInput(img);
-            Rectangle rect=new Rectangle();
-            rect.setEffect(imgIcon);
-            root.setTop(rect);
-        }
-    });
+        });
        
    
-    root.setLeft(new Label(""));
-    root.setRight(new Label(""));
-    root.setCenter(new Label(""));
+        root.setLeft(new Label(""));
+        root.setRight(new Label(""));
+        root.setCenter(new Label(""));
 
-    HBox hbox=new HBox();
-    hbox.getChildren().addAll(prevBtn,lblFile,nextBtn );
-    hbox.setPadding(new Insets(5,5,10,200));
-    hbox.setSpacing(20);
-    root.setBottom(hbox);
+        HBox hbox=new HBox();
+        hbox.getChildren().addAll(prevBtn,lblFile,nextBtn );
+        hbox.setPadding(new Insets(5,5,10,200));
+        hbox.setSpacing(20);
+        root.setBottom(hbox);
+        
+        BorderPane.setAlignment(hbox,Pos.CENTER_LEFT);
+        Scene scene = new Scene(root, width, height);
 
-    Scene scene = new Scene(root, 600, 450);
-
-    primaryStage.setTitle("Picture Gallery");
-    primaryStage.setScene(scene);
-    primaryStage.show();
+        primaryStage.setTitle("Picture Gallery");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {      
-        launch(args);
+        Application.launch(args);
     }
     
     
