@@ -72,7 +72,7 @@ public class PictureGallery extends Application {
                     idx=idx+1;
                 }
                 fileLoc=filesLoc.get(idx);
-                System.out.println(fileLoc);
+                //System.out.println(fileLoc);
                 lblFile.setText(fileLoc);
                 Image img = new Image("file://"+fileLoc,width,height-200,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
                 ImageInput imgIcon = new ImageInput(img);
@@ -93,7 +93,7 @@ public class PictureGallery extends Application {
                     idx=idx-1;
                 }
                 fileLoc=filesLoc.get(idx);
-                System.out.println(fileLoc);
+                //System.out.println(fileLoc);
                 lblFile.setText(fileLoc);
                 Image img = new Image("file://"+fileLoc,width,height-200,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
                 ImageInput imgIcon = new ImageInput(img);
@@ -102,7 +102,14 @@ public class PictureGallery extends Application {
                 root.setTop(rect);
             }
         });
-       
+        fileLoc=filesLoc.get(0);
+        //System.out.println(fileLoc);
+        lblFile.setText(fileLoc);
+        Image img = new Image("file://"+fileLoc,width,height-200,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
+        ImageInput imgIcon = new ImageInput(img);
+        Rectangle rect=new Rectangle();                
+        rect.setEffect(imgIcon); 
+        root.setTop(rect);
    
         root.setLeft(new Label(""));
         root.setRight(new Label(""));
