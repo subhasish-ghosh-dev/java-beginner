@@ -38,7 +38,7 @@ public class Customer implements Comparator<Entry<String, Customer>>{
     
     @Override
     public int compare(Entry<String,Customer> o1, Entry<String,Customer> o2) {  
-
+        System.out.println("SORTING");    
         return o1.getValue().getId().compareTo(o2.getValue().getId());
     }   
 }
