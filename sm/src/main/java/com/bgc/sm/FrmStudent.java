@@ -8,11 +8,14 @@ package com.bgc.sm;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,6 +31,8 @@ import javafx.stage.Stage;
 import javafx.scene.effect.ImageInput;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 
 /**
@@ -109,17 +114,25 @@ public class FrmStudent extends Application {
                         bPane.getChildren().add(rect);
                }
             });
-        
+        VBox vbox=new VBox();
+        HBox hbox1=new HBox();
+        ComboBox comboId = new ComboBox();
+        ArrayList<Integer> ids= new ArrayList<Integer>();
         TableView<StudentBean> tbl = new TableView<StudentBean>();
         
         read.setOnAction(new EventHandler<ActionEvent>() {            
             @Override//callback function
             public void handle(ActionEvent event) {
                 DataAccess da=new DataAccess();
-                ObservableList<StudentBean> students = FXCollections.observableList(da.getStudents());
+                List<StudentBean> students1=da.getStudents();
+                ObservableList<StudentBean> students = FXCollections.observableList(students1);
                 
                 tbl.setItems(students);
- 
+                for(StudentBean stb:students1){
+                    ids.add(stb.getRollNo());
+                }
+                Label lblCombo = new Label("Search By Roll No");
+                comboId.setItems(FXCollections.observableList(ids));
                 TableColumn rollCol = new TableColumn("Roll No");
                 rollCol.setCellValueFactory(new PropertyValueFactory("rollNo"));
                 TableColumn nameCol = new TableColumn("Name");
@@ -134,9 +147,9 @@ public class FrmStudent extends Application {
                 tbl.getColumns().setAll(rollCol, nameCol, semesterCol, emailCol, dobCol);
                 tbl.setPrefWidth(450);
                 tbl.setPrefHeight(300);           
-                
-                
-                bPane.setCenter(tbl);
+                vbox.setPadding(new Insets(5,5,5,5));
+                vbox.getChildren().addAll(lblCombo, comboId, tbl);
+                bPane.setCenter(vbox);
             }
         });       
         
