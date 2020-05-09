@@ -36,10 +36,10 @@ public class FileManager extends Task{
               String fileString = file.toAbsolutePath().toString();
               System.out.println("pathString = " + fileString);
               filesLoc.add(fileString);
-              if(fileString.endsWith(fileToFind)){
+              /*if(fileString.endsWith(fileToFind)){
                 System.out.println("file found at path: " + file.toAbsolutePath());
                 return FileVisitResult.TERMINATE;
-              }
+              }*/
               return FileVisitResult.CONTINUE;
             }
           });

@@ -40,7 +40,14 @@ import javafx.scene.layout.VBox;
  * @author subhasish
  */
 public class FrmStudent extends Application {
-    
+    VBox vbox=new VBox();
+    HBox hbox1=new HBox();
+    ComboBox comboId = new ComboBox();
+    ArrayList<Integer> ids= new ArrayList<Integer>();
+    TableView<StudentBean> tbl = new TableView<StudentBean>();
+    BorderPane bPane = new BorderPane(); 
+    MenuBar menuBar = new MenuBar();
+
     @Override
     public void start(Stage primaryStage) {
         Label rollno=new Label("Roll No");  
@@ -48,7 +55,8 @@ public class FrmStudent extends Application {
         Label semester = new Label("Semester");
         Label email = new Label("Email Address");
         Label dob = new Label("Date of Birth");
-        
+        Label lblCombo = new Label("Search By Roll No");
+
         TextField txtRoll=new TextField();  
         TextField txtNam=new TextField(); 
         TextField txtSem=new TextField();  
@@ -74,14 +82,11 @@ public class FrmStudent extends Application {
                     ex.printStackTrace();
                 }
             }
-        });
+        });     
         
-       
-        BorderPane bPane = new BorderPane();  
         
         bPane.setLeft(new Label("                        "));
         
-        MenuBar menuBar = new MenuBar();
         Menu actions = new Menu("Manage");
         MenuItem insert = new MenuItem("Insert");
         MenuItem read = new MenuItem("Read");
@@ -89,36 +94,36 @@ public class FrmStudent extends Application {
         insert.setOnAction(new EventHandler<ActionEvent>() {            
             @Override//callback function
             public void handle(ActionEvent event) {
-                GridPane root = new GridPane();  
-                root.addRow(0, rollno, txtRoll);  
-                root.addRow(1, name, txtNam);  
-                root.addRow(2, semester, txtSem); 
-                root.addRow(3, email, txtEm); 
-                root.addRow(4, dob, txtDb); 
-                root.addRow(5, new Label("           "),btn);
-
-                root.setHgap(10);
-                root.setVgap(10);
-
                 Image image = new Image("http://www.iqacbgctub.com/documents/v/c/69.jpg");
                 ImageInput imgIn=new ImageInput();
                 imgIn.setSource(image);
 
-                imgIn.setX(500);
+                imgIn.setX(250);
                 imgIn.setY(50);
 
                 Rectangle rect = new Rectangle();
                 rect.setEffect(imgIn);
+                
+                
+                GridPane root = new GridPane();
+                root.addRow(0, new Label(), rect);
+                root.addRow(1, rollno, txtRoll);  
+                root.addRow(2, name, txtNam);  
+                root.addRow(3, semester, txtSem); 
+                root.addRow(4, email, txtEm); 
+                root.addRow(5, dob, txtDb); 
+                root.addRow(6, new Label("           "),btn);
 
-                        bPane.setCenter(root);
-                        bPane.getChildren().add(rect);
+                root.setHgap(10);
+                root.setVgap(10);
+
+                
+
+                bPane.setCenter(root);
+               
                }
             });
-        VBox vbox=new VBox();
-        HBox hbox1=new HBox();
-        ComboBox comboId = new ComboBox();
-        ArrayList<Integer> ids= new ArrayList<Integer>();
-        TableView<StudentBean> tbl = new TableView<StudentBean>();
+       
         
         read.setOnAction(new EventHandler<ActionEvent>() {            
             @Override//callback function
@@ -131,7 +136,6 @@ public class FrmStudent extends Application {
                 for(StudentBean stb:students1){
                     ids.add(stb.getRollNo());
                 }
-                Label lblCombo = new Label("Search By Roll No");
                 comboId.setItems(FXCollections.observableList(ids));
                 TableColumn rollCol = new TableColumn("Roll No");
                 rollCol.setCellValueFactory(new PropertyValueFactory("rollNo"));
@@ -147,12 +151,12 @@ public class FrmStudent extends Application {
                 tbl.getColumns().setAll(rollCol, nameCol, semesterCol, emailCol, dobCol);
                 tbl.setPrefWidth(450);
                 tbl.setPrefHeight(300);           
-                vbox.setPadding(new Insets(5,5,5,5));
-                vbox.getChildren().addAll(lblCombo, comboId, tbl);
                 bPane.setCenter(vbox);
             }
         });       
         
+        vbox.setPadding(new Insets(5,5,5,5));
+        vbox.getChildren().addAll(lblCombo, comboId, tbl);
         
         
         actions.getItems().addAll(insert, read);

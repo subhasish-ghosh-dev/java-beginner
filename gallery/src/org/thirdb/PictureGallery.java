@@ -55,9 +55,11 @@ public class PictureGallery extends Application {
         Label lblFile=new Label(fileLoc);   
         BorderPane root = new BorderPane();        
         startTask();
+        
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
+        
         filesLoc = FileManager.filesLoc;    
         Button nextBtn = new Button();
         nextBtn.setText("Next");
