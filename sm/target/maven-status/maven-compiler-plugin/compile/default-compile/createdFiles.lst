@@ -1,3 +1,8 @@
-com/bgc/sm/DataAccess.class
-com/bgc/sm/Student.class
-com/bgc/sm/DBConnection.class
+com\bgc\sm\FrmStudent$2.class
+com\bgc\sm\DataAccess.class
+com\bgc\sm\StudentBean.class
+com\bgc\sm\Student.class
+com\bgc\sm\FrmStudent$1.class
+com\bgc\sm\DBConnection.class
+com\bgc\sm\FrmStudent$3.class
+com\bgc\sm\FrmStudent.class
