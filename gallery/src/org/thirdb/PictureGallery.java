@@ -31,6 +31,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.*;
 import javafx.scene.effect.ImageInput;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -49,9 +50,9 @@ public class PictureGallery extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        //filesLoc.add("/home/subhasish/Pictures/banner_update.png");
-        //filesLoc.add("/home/subhasish/Pictures/executors.png");
-        //filesLoc.add("/home/subhasish/Pictures/sparkjob.png");
+        filesLoc.add("C:\\Users\\my\\Pictures\\beautiful_natural_scenery_04_hd_pictures_166229.jpg");
+        filesLoc.add("C:\\Users\\my\\Pictures\\mountain.jpg");
+        filesLoc.add("C:\\Users\\my\\Pictures\\photo-1554266183-2696fdafe3ff.jpg");
         Label lblFile=new Label(fileLoc);   
         BorderPane root = new BorderPane();        
         startTask();
@@ -76,10 +77,13 @@ public class PictureGallery extends Application {
                 fileLoc=filesLoc.get(idx);
                 //System.out.println(fileLoc);
                 lblFile.setText(fileLoc);
-                Image img = new Image("file://"+fileLoc,width,height-200,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
-                ImageInput imgIcon = new ImageInput(img);
-                Rectangle rect=new Rectangle();                
-                rect.setEffect(imgIcon); 
+                Image img = new Image("file:///"+fileLoc,width,height-300,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
+                ImageView imgIcon = new ImageView(img);
+                
+                //Rectangle rect=new Rectangle();                
+                //rect.setEffect(imgIcon); 
+                HBox rect=new HBox();
+                rect.getChildren().add(imgIcon);
                 root.setTop(rect);
             }
         });
@@ -97,21 +101,27 @@ public class PictureGallery extends Application {
                 fileLoc=filesLoc.get(idx);
                 //System.out.println(fileLoc);
                 lblFile.setText(fileLoc);
-                Image img = new Image("file://"+fileLoc,width,height-200,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
-                ImageInput imgIcon = new ImageInput(img);
-                Rectangle rect=new Rectangle();
-                rect.setEffect(imgIcon);
+                Image img = new Image("file:///"+fileLoc,width,height-300,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
+                ImageView imgIcon = new ImageView(img);
+                
+                //Rectangle rect=new Rectangle();                
+                //rect.setEffect(imgIcon); 
+                HBox rect=new HBox();
+                rect.getChildren().add(imgIcon);
                 root.setTop(rect);
             }
         });
         fileLoc=filesLoc.get(0);
         //System.out.println(fileLoc);
         lblFile.setText(fileLoc);
-        Image img = new Image("file://"+fileLoc,width,height-200,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
-        ImageInput imgIcon = new ImageInput(img);
-        Rectangle rect=new Rectangle();                
-        rect.setEffect(imgIcon); 
-        root.setTop(rect);
+        Image img = new Image("file:///"+"C:\\Users\\my\\Pictures\\beautiful_natural_scenery_04_hd_pictures_166229.jpg",width,height-300,false,false);//("file:///home/subhasish/Pictures/banner_update.png",600,400,false,false);
+        ImageView imgIcon = new ImageView(img);
+                
+                //Rectangle rect=new Rectangle();                
+                //rect.setEffect(imgIcon); 
+                HBox rect=new HBox();
+                rect.getChildren().add(imgIcon);
+                root.setTop(rect);
    
         root.setLeft(new Label(""));
         root.setRight(new Label(""));
@@ -124,7 +134,7 @@ public class PictureGallery extends Application {
         root.setBottom(hbox);
         
         BorderPane.setAlignment(hbox,Pos.CENTER_LEFT);
-        Scene scene = new Scene(root, width, height);
+        Scene scene = new Scene(root, width-200,height-200);
 
         primaryStage.setTitle("Picture Gallery");
         primaryStage.setScene(scene);

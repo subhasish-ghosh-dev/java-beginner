@@ -25,8 +25,8 @@ public class FileManager extends Task{
     @Override
     protected Object call() throws Exception {
          
-        Path rootPath = Paths.get("/home/subhasish/Pictures/");
-        String fileToFind = File.separator + "banner_update.png";
+        Path rootPath = Paths.get("C:\\Users\\my\\Pictures\\");
+        String fileToFind = File.separator + "mountain.jpg";
 
         try {
             Files.walkFileTree(rootPath, new SimpleFileVisitor<Path>() {
